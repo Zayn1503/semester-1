@@ -3,8 +3,16 @@
 # We want to read in a text file, and calculate how many words are in it. 
 # You can use any of the .txt files to test this - or even make your own.
 
+filename = input("Enter the filename: ")
+
 # open and read the file
 
+with open(filename, "r") as file:
+    text = file.read()
+
+seperated_text = text.split()
+print(seperated_text)
+print(len(seperated_text))
 # calculate the number of words
 # hint: you could use .split() to break up by spaces
 # hint: watch out for empty lines that might give you empty strings

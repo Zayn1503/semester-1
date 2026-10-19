@@ -3,7 +3,9 @@
 print("This program will repeat everything you type.")
 print("To exit the program type quit")
 
-while True:
+user_input = ""
+
+while user_input != "quit":
     user_input = input("Say something: ")
     print(f"You said: {user_input}")
 
