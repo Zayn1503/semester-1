@@ -1,21 +1,48 @@
-# Worksheet 1.3: Task 3
+# Ask for the filename once
+filename = input("Enter the filename: ")
 
-# Your code for the overall grade classification
+raw_student_data = []
+with open(filename, "r") as file:
+    file.readline()  # Skip header line
+    for line in file:
+        raw_student_data.append(line)
 
-# ask for filename of the student file
+# Clean rows and strip trailing/empty comma values
+for i, dat in enumerate(raw_student_data):
+    raw_student_data[i] = [item.strip() for item in dat.split(",") if item.strip() != ""]
 
-# open the file
+avg_student_data = []
+for student in raw_student_data:
+    if len(student) < 2:
+        continue
 
-# read in the data, and for each student calculate their average grade and classification
+    student_id = student[0]
+    total = 0.0
+    count = 0
 
+    # Convert each module mark to a float and sum
+    for mark in student[1:]:
+        total += float(mark)
+        count += 1
 
+    average = total / count
 
-# write out this calculated data in the format without a header:
-#      student_id,average_grade,classification - replace this with actual value
-#      The average grade should be given to 2 decimal places
-#      this can be achieved by using the following in an fstring: {variable_name:.2f}
+    # Grade boundary logic
+    if average >= 70:
+        grade = "1"
+    elif average >= 60:
+        grade = "2:1"
+    elif average >= 50:
+        grade = "2:2"
+    elif average >= 40:
+        grade = "3"
+    else:
+        grade = "F"
 
+    avg_student_data.append([student_id, f"{average:.2f}", grade])
 
-# write this data out to a file named input_file_name + _out.csv - e.g. the input file name 'student_data.csv' -> 'student_data.csv_out.csv'
-
-# You can compare your output files with the 4 example files in example_outfiles folder
+# Derive output name automatically from input filename
+output_filename = filename + "_out.csv"
+with open(output_filename, "w") as file:
+    for row in avg_student_data:
+        file.write(",".join(row) + "\n")
