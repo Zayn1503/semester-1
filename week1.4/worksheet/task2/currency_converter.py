@@ -6,7 +6,7 @@
     other than any provided template code, was written and developed by
     you independently.
 
-    Name:
+    Name: Muhammad Sheeman Khan (Preffered name Zayn Khan)
 """
 
 def currency_converter(amount, from_currency, to_currency):
@@ -19,8 +19,15 @@ def currency_converter(amount, from_currency, to_currency):
     }
 
     # your code here
+    conversions = conversion_rate[from_currency].items()
+    result = 0
 
-    return None
+    for i in conversions:
+        if i[0] == to_currency:
+            result = amount * i[1]
+    if result < 0:
+        result = 0
+    return result
 
 # Submit only this file currency_converter.py with the completed function.
 
