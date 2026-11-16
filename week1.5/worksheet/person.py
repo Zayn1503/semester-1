@@ -6,9 +6,23 @@ class Person:
     """
     A Person, with a name and a date of birth.
     """
+    def __init__(self, name, birth):
+        """Create a person with the given name and date of birth."""
+        if not isinstance(name, str):
+            raise TypeError
+        if name == '':
+            raise ValueError
+        if not isinstance(birth, date):
+            raise TypeError
 
-    # Write a constructor here to create and initialize name and
-    # birth fields (see README.md for further details)
+        self.name = name
+        self.birth = birth
 
-    # Implement methods initials() and is_birthday() here
-    # (see README.md for further details)
+    def initials(self):
+        """Return the uppercased initials of each part of the name."""
+        return ''.join(part[0].upper() for part in self.name.split())
+
+    def is_birthday(self):
+        """Return True if today is the person's birthday."""
+        today = date.today()
+        return self.birth.month == today.month and self.birth.day == today.day
